@@ -1,5 +1,5 @@
 {
-  "name": "oma",
+  "name": "Anime Search",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,7 +8,9 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "cheerio": "^1.0.0-rc.5",
     "core-js": "^3.6.5",
+    "request": "^2.88.2",
     "vue": "^3.0.0-0"
   },
   "devDependencies": {

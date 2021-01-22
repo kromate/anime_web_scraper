@@ -1,11 +1,12 @@
 <template>
   <div class="container">
     <div class="fieldInput">
-      <input type="text" />
-      <button>Search</button>
+      <input type="text" v-model="searchedText" />
+      <button @click="fetch()">Search</button>
     </div>
-
-    <a v-for="(n, index) in searchArray" :key="index" :href="n.href">{{ n.name }}</a>
+    <div>
+      <a v-for="(n, index) in searchArray" :key="index" :href="n.href">{{ n.name }}</a>
+    </div>
   </div>
 </template>
 
@@ -22,6 +23,7 @@ export default {
   },
   methods: {
     fetch() {
+      this.searchArray = [];
       fetch(
         `https://ajax.gogocdn.net/site/loadAjaxSearch?keyword=${this.searchedText}&id=-1&link_web=https%3A%2F%2Fgogoanime.so%2F`,
       )
@@ -30,6 +32,7 @@ export default {
           // console.log(data.content);
           const $ = cheerio.load(data.content);
           $("a").each((i, elem) => {
+            console.log(elem);
             const href = elem.attribs.href;
             const name = elem.children[1].data;
 
@@ -51,12 +54,35 @@ export default {
 </script>
 
 <style>
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 input {
-  width: 60% !important;
-  background: #ffffff7a;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  margin: 0px 9px;
-  margin-right: 3rem;
-  font-weight: 550;
+  height: 25px;
+  width: 214px;
+  padding: 6px 15px;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  background: #dddfe2;
+  color: #3f4753;
+  font-size: 14px;
+  font-weight: bold;
+}
+button {
+  padding: 6px 15px;
+  margin: 0px 5px;
+}
+
+a {
+  display: block;
+  margin: 5px;
+  text-decoration: none;
+  background: burlywood;
+  text-align: center;
+  color: black;
+  padding: 4px;
 }
 </style>
